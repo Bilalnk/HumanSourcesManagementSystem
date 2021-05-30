@@ -1,13 +1,16 @@
 package com.kodlama.hrms.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Data
 @Entity
 @Table(name = "job_positions")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","jobAdvertisement"})
 public class JobPositions {
 
     @Id
@@ -25,6 +28,9 @@ public class JobPositions {
         this.id = id;
         this.position = position;
     }
+
+    @OneToMany(mappedBy = "jobPosition")
+    private List<JobAdvertisement> jobAdvertisements;
 
     @Override
     public boolean equals(Object o) {

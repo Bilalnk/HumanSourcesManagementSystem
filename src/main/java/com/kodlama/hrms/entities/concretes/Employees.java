@@ -7,28 +7,21 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 
-@Data
-@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@NoArgsConstructor
+@Data
 @Entity
+@Table(name = "employees")
+@NoArgsConstructor
+@AllArgsConstructor
 @PrimaryKeyJoinColumn(name = "user_id")
-@Table(name = "candidates")
-public class Candidates extends User{
+public class Employees extends User{
 
     @Column(name = "firstname")
     private String firstName;
 
     @Column(name = "lastname")
     private String lastName;
-
-    @Column(name = "identity_number")
-    private String identityNumber;
-
-    @Column(name = "birthdate")
-    private Date Bod;
 
 
 }

@@ -1,6 +1,7 @@
 package com.kodlama.hrms.api.controllers;
 
 import com.kodlama.hrms.business.abstracts.JobPositionService;
+import com.kodlama.hrms.core.utilities.result.DataResult;
 import com.kodlama.hrms.entities.concretes.JobPositions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,46 +27,46 @@ public class JobsPositionController {
     }
 
     @GetMapping("/getall")
-    public List<JobPositions> getAll(){
+    public DataResult<List<JobPositions>> getAll(){
         return this.jobPositionService.getAll();
     }
 
     @GetMapping("/get/{id}")
-    public Optional<JobPositions> getJobPositionById(@PathVariable int id){
+    public DataResult<Optional<JobPositions>> getJobPositionById(@PathVariable int id){
 
         return this.jobPositionService.getById(id);
     }
 
     @GetMapping("/get")
-    public Optional<JobPositions> getJobPositionByIdQuery(@RequestParam(value = "id") int id){
-
+    public DataResult<Optional<JobPositions>> getJobPositionByIdQuery(@RequestParam(value = "id") int id){
         return this.jobPositionService.getById(id);
     }
 
     @GetMapping("/getByName")
-    public List<JobPositions> getJobPositionByNameQuery(@RequestParam(value = "position") String position){
+    public DataResult<List<JobPositions>> getJobPositionByNameQuery(@RequestParam(value = "position") String position){
         return this.jobPositionService.getByName(position);
     }
 
     @PostMapping(value = "/add" ,consumes ="application/json", produces = "application/json")
-    public JobPositions add(@RequestBody JobPositions jobPositions){
+    public DataResult<JobPositions> add(@RequestBody JobPositions jobPositions){
 
         return this.jobPositionService.saveJobPosition(jobPositions);
     }
 
     @DeleteMapping("/delete/{id}")
     public void deleteById(@PathVariable int id){
-
          this.jobPositionService.delete(id);
     }
 
-    @GetMapping("/delet")
+    @GetMapping("/delete")
     public void deleteBId(@RequestParam(value = "id", defaultValue = "0") int id){
-        System.out.println(id);
+
+        this.jobPositionService.delete(id);
+
     }
 
     @PutMapping("/update")
-    public JobPositions update(@RequestBody JobPositions newJobPositions, @RequestParam("id") int id){
+    public DataResult<JobPositions> update(@RequestBody JobPositions newJobPositions, @RequestParam("id") int id){
         return this.jobPositionService.updateById(id, newJobPositions);
     }
 }
