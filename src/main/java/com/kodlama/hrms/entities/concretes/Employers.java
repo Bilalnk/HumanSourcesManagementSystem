@@ -1,5 +1,6 @@
 package com.kodlama.hrms.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.kodlama.hrms.entities.abstracts.User;
 import lombok.AllArgsConstructor;
@@ -31,5 +32,6 @@ public class Employers extends User {
     private boolean isActivated;
 
     @OneToMany(mappedBy = "employer")
+    @JsonIgnore
     private List<JobAdvertisement> jobAdvertisements;
 }

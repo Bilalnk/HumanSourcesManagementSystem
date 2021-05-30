@@ -1,5 +1,6 @@
 package com.kodlama.hrms.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,7 +34,7 @@ public class JobAdvertisement {
     private int numberOfOpenPosition;
 
     @Column(name = "is_active")
-    private boolean isActive;
+    private boolean active;
 
     @Column(name = "published_date")
     private Date publishedDate;
@@ -41,7 +42,7 @@ public class JobAdvertisement {
     @Column(name ="closing_date")
     private Date closingDate;
 
-    @ManyToOne
+    @ManyToOne //(cascade = CascadeType.PERSIST) Job advertisement eklendiğinde empolyer ı da ekler
     @JoinColumn(name = "employer_id")
     private Employers employer;
 
