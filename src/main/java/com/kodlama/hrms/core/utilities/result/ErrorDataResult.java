@@ -6,8 +6,8 @@ public class ErrorDataResult<T> extends DataResult<T>{
         super(null, false);
     }
 
-    public ErrorDataResult(T data, boolean success){
-        super(data, false);
+    public ErrorDataResult(T data, String success){
+        super(data, false, success);
     }
 
     public ErrorDataResult(T data, boolean success, String message){

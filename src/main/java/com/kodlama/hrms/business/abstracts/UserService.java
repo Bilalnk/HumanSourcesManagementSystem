@@ -10,6 +10,7 @@ public interface UserService {
 
     DataResult<List<User>> getAll();
 
+    Result login(String email, String password);
 
 //    DataResult<User> add(User user);
 
