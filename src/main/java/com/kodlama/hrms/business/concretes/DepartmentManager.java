@@ -1,6 +1,7 @@
 package com.kodlama.hrms.business.concretes;
 
 import com.kodlama.hrms.business.abstracts.DepartmentService;
+import com.kodlama.hrms.core.utilities.constants.Messages;
 import com.kodlama.hrms.core.utilities.result.DataResult;
 import com.kodlama.hrms.core.utilities.result.Result;
 import com.kodlama.hrms.core.utilities.result.SuccessDataResult;
@@ -24,7 +25,7 @@ public class DepartmentManager implements DepartmentService {
 
     @Override
     public DataResult<List<Department>> getAll() {
-        return new SuccessDataResult<>(this.departmentDao.findAll());
+        return new SuccessDataResult<>(this.departmentDao.findAll(), Messages.SUCCESS);
     }
 
     @Override

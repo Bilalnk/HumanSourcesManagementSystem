@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "schools")
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","schoolDepartments"})
+//@JsonIgnoreProperties({"hibernateLazyInitializer","handler","schoolDepartments"})
 public class School {
 
     @Id
