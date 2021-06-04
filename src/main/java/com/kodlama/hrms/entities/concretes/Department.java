@@ -1,5 +1,6 @@
 package com.kodlama.hrms.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Data
@@ -28,5 +30,9 @@ public class Department {
     @NotNull
     @NotBlank
     private String departmentName;
+
+    @OneToMany(mappedBy = "department")
+    @JsonIgnore
+    private List<SchoolDepartment> schoolDepartments;
 }
 
