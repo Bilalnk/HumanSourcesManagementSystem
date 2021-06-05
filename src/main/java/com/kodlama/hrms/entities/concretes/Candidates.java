@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -29,6 +30,9 @@ public class Candidates extends User{
 
     @Column(name = "birthdate")
     private Date Bod;
+
+    @OneToMany(mappedBy = "candidates")
+    private List<CandidateSchoolInfo> candidateSchoolInfos;
 
 
 }
