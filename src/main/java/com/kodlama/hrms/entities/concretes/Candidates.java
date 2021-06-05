@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -20,19 +22,31 @@ import java.util.List;
 public class Candidates extends User{
 
     @Column(name = "firstname")
+    @NotBlank
+    @NotNull
     private String firstName;
 
     @Column(name = "lastname")
+    @NotBlank
+    @NotNull
     private String lastName;
 
     @Column(name = "identity_number")
+    @NotBlank
+    @NotNull
     private String identityNumber;
 
     @Column(name = "birthdate")
+    @NotNull
     private Date Bod;
 
     @OneToMany(mappedBy = "candidates")
+    @NotNull
     private List<CandidateSchoolInfo> candidateSchoolInfos;
+
+    @OneToMany(mappedBy = "candidates")
+    @NotNull
+    private List<CandidateLanguages> candidateLanguages;
 
 
 }

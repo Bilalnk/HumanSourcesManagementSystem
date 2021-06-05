@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -30,6 +32,8 @@ public class CandidateSchoolInfo {
     private SchoolDepartment schoolDepartment;
 
     @Column(name = "date_of_start")
+    @NotNull
+    @NotBlank
     private Date dateOfStart;
 
     @Column(name = "date_of_finish")
