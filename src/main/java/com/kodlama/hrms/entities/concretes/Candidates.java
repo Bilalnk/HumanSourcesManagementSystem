@@ -48,5 +48,16 @@ public class Candidates extends User{
     @NotNull
     private List<CandidateLanguages> candidateLanguages;
 
+    @OneToMany(mappedBy = "candidates")
+    @NotNull
+    private List<CandidateSkills> candidateSkills;
+
+    @OneToMany(mappedBy = "candidates")
+    @NotNull
+    private List<CandidateLinks> candidateLinks;
+
+    @OneToMany(mappedBy = "candidates")
+    @NotNull
+    private List<Experience> experiences;
 
 }

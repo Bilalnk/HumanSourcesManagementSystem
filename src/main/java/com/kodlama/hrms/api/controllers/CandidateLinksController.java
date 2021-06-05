@@ -1,13 +1,10 @@
 package com.kodlama.hrms.api.controllers;
 
-import com.kodlama.hrms.business.abstracts.CandidateSkillsService;
-import com.kodlama.hrms.core.utilities.constants.Messages;
+import com.kodlama.hrms.business.abstracts.CandidateLinksService;
 import com.kodlama.hrms.core.utilities.result.DataResult;
 import com.kodlama.hrms.core.utilities.result.ErrorDataResult;
 import com.kodlama.hrms.core.utilities.result.Result;
-import com.kodlama.hrms.core.utilities.result.SuccessResult;
-import com.kodlama.hrms.entities.concretes.CandidateSkills;
-import org.aspectj.bridge.Message;
+import com.kodlama.hrms.entities.concretes.CandidateLinks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -20,25 +17,24 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(name = "/api/candidateskills")
-public class CandidateSkillsController {
+@RequestMapping("/api/candidatelinks")
+public class CandidateLinksController {
 
-    private CandidateSkillsService skillsService;
+    private CandidateLinksService candidateLinksService;
 
     @Autowired
-    public CandidateSkillsController(CandidateSkillsService skillsService) {
-        this.skillsService = skillsService;
-    }
-
-    @GetMapping("/getall")
-    public DataResult<List<CandidateSkills>> getAll() {
-        return this.skillsService.getAll();
+    public CandidateLinksController(CandidateLinksService candidateLinksService) {
+        this.candidateLinksService = candidateLinksService;
     }
 
     @PostMapping("/add")
-    public Result add(@Valid @RequestBody CandidateSkills candidateSkills){
-        this.skillsService.addSkill(candidateSkills);
-        return new SuccessResult(Messages.SUCCESS);
+    public Result add(@Valid @RequestBody CandidateLinks candidateLinks){
+        return this.candidateLinksService.add(candidateLinks);
+    }
+
+    @GetMapping("/getall")
+    public DataResult<List<CandidateLinks>> getAll(){
+        return this.candidateLinksService.getAll();
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)//sistemde bu türden bir hata olursa yukrıdaki responseEntity'i bad request ile sarmala //hataları yakala
@@ -53,5 +49,4 @@ public class CandidateSkillsController {
 
         return new ErrorDataResult<>(validationErrors, "false");
     }
-
 }
