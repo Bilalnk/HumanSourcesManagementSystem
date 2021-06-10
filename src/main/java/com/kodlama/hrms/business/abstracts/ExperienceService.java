@@ -11,4 +11,6 @@ public interface ExperienceService {
     Result add(Experience experience);
 
     DataResult<List<Experience>> getAll();
+
+    DataResult<List<Experience>> findByCandidatesIdOrderByDepartureDateDesc(int candidateId);
 }

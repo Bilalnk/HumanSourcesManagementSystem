@@ -1,7 +1,6 @@
 package com.kodlama.hrms.business.concretes;
 
-import com.kodlama.hrms.business.abstracts.CandidatesService;
-import com.kodlama.hrms.business.abstracts.EmailVerificationService;
+import com.kodlama.hrms.business.abstracts.*;
 import com.kodlama.hrms.core.utilities.constants.Messages;
 import com.kodlama.hrms.core.utilities.adapters.abstracts.EmailSenderService;
 import com.kodlama.hrms.core.utilities.adapters.abstracts.UserChecksService;
@@ -10,6 +9,7 @@ import com.kodlama.hrms.core.utilities.result.ErrorDataResult;
 import com.kodlama.hrms.core.utilities.result.SuccessDataResult;
 import com.kodlama.hrms.dataAccess.abstracts.CandidatesDao;
 import com.kodlama.hrms.entities.concretes.Candidates;
+import com.kodlama.hrms.entities.dtos.CVDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,15 +25,30 @@ public class CandidatesManager implements CandidatesService {
     private UserChecksService userChecksService;
     private EmailSenderService emailSenderService;
     private EmailVerificationService emailVerificationService;
+    private CandidateSchoolInfoService candidateSchoolInfoService;
+    private CandidateLanguagesService candidateLanguagesService;
+    private ExperienceService experienceService;
+    private CandidateLinksService candidateLinksService;
+    private CandidateSkillsService skillsService;
+//    private CandidatePhotoService candidatePhotoService;
 
     @Autowired
-    public CandidatesManager(CandidatesDao candidatesDao, UserChecksService userChecksService, EmailSenderService emailSenderService, EmailVerificationService emailVerificationService) {
-        super();
+    public CandidatesManager(CandidatesDao candidatesDao, UserChecksService userChecksService, EmailSenderService emailSenderService,
+                             EmailVerificationService emailVerificationService, CandidateSchoolInfoService candidateSchoolInfoService,
+                             CandidateLanguagesService candidateLanguagesService, ExperienceService experienceService,
+                             CandidateLinksService candidateLinksService, CandidateSkillsService skillsService/*, CandidatePhotoService candidatePhotoService*/) {
         this.candidatesDao = candidatesDao;
         this.userChecksService = userChecksService;
         this.emailSenderService = emailSenderService;
         this.emailVerificationService = emailVerificationService;
+        this.candidateSchoolInfoService = candidateSchoolInfoService;
+        this.candidateLanguagesService = candidateLanguagesService;
+        this.experienceService = experienceService;
+        this.candidateLinksService = candidateLinksService;
+        this.skillsService = skillsService;
+//        this.candidatePhotoService = candidatePhotoService;
     }
+
 
     @Override
     public DataResult<List<Candidates>> getAll() {
@@ -66,6 +81,28 @@ public class CandidatesManager implements CandidatesService {
         this.emailSenderService.sendCode(candidates.getEmail(), this.emailVerificationService.createCode(candidates1.getId()));
         return new SuccessDataResult<Candidates>(candidates1, Messages.USER_ADDED);
 
+    }
+
+    @Override
+    public boolean isExist(int id) {
+        return this.candidatesDao.existsCandidatesById(id);
+    }
+
+    @Override
+    public DataResult<CVDto> getCvById(int id) {
+
+        if(!this.isExist(id)) return new ErrorDataResult<>(null, Messages.USER_NOT_EXIST);
+
+        CVDto cvDto= new CVDto();
+        cvDto.setCandidate(this.candidatesDao.findById(id).get());
+        cvDto.setCandidateSchoolInfoList(this.candidateSchoolInfoService.getByCandidatesIdOrderByDateOfFinishDesc(id).getData());
+        cvDto.setCandidateLanguages(this.candidateLanguagesService.getAll().getData());
+        cvDto.setExperiences(this.experienceService.findByCandidatesIdOrderByDepartureDateDesc(id).getData());
+        cvDto.setCandidateLinks(this.candidateLinksService.getAll().getData());
+        cvDto.setCandidateSkills(this.skillsService.getAll().getData());
+//        cvDto.setCandidatePhoto(this.candidatePhotoService.findByCandidatesId(id).getData());
+
+        return new SuccessDataResult<>(cvDto, Messages.SUCCESS);
     }
 }
 

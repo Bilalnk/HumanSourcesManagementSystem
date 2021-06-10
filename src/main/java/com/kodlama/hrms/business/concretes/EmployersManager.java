@@ -48,6 +48,15 @@ public class EmployersManager implements EmployersService {
         return new SuccessDataResult<List<Employers>>(this.employersDao.findAll(), Messages.USERS_RETURNED);
     }
 
+    @Override
+    public Result confirmEmployer(int id, boolean active) {
+        Employers employers = this.employersDao.findById(id).orElse(null);
+        if(employers == null) return new ErrorResult(Messages.USER_NOT_EXIST);
+        employers.setActivated(active);
+        this.employersDao.save(employers);
+        return new SuccessResult(Messages.SUCCESS);
+    }
+
 
     private Result checkCompanyName(Employers employers) {
         if (employers.getCompanyName().isBlank() || employers.getCompanyName() == null) {

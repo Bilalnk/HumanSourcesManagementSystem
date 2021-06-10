@@ -37,6 +37,11 @@ public class CandidateSchoolInfoController {
         return this.candidateSchoolInfoService.getAll();
     }
 
+    @GetMapping("/getallorderdesc")
+    public DataResult<List<CandidateSchoolInfo>> getAllOrderDesc(@RequestParam int candidateId){
+        return this.candidateSchoolInfoService.getByCandidatesIdOrderByDateOfFinishDesc(candidateId);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)//sistemde bu türden bir hata olursa yukrıdaki responseEntity'i bad request ile sarmala //hataları yakala
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions){

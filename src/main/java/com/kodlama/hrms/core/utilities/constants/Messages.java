@@ -18,4 +18,6 @@ public class Messages {
     public static String COMPANY_DOMAIN_NOT_MATCHED = "Şirket maili ile domain eşleşmedi";
     public static String INVALID_PHONE_NUMBER = "Telefon Numarası Hatalı";
     public static String PASSWORD_IS_BLANK = "Şifre boş olamaz";
+
+    public static String PHOTO_UPLOADED = "Fotoğraf Yüklendi";
 }

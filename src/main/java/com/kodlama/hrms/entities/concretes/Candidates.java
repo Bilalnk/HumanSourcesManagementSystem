@@ -1,5 +1,6 @@
 package com.kodlama.hrms.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kodlama.hrms.entities.abstracts.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,23 +42,28 @@ public class Candidates extends User{
     private Date Bod;
 
     @OneToMany(mappedBy = "candidates")
+    @JsonIgnore
     @NotNull
     private List<CandidateSchoolInfo> candidateSchoolInfos;
 
     @OneToMany(mappedBy = "candidates")
     @NotNull
+    @JsonIgnore
     private List<CandidateLanguages> candidateLanguages;
 
     @OneToMany(mappedBy = "candidates")
     @NotNull
+    @JsonIgnore
     private List<CandidateSkills> candidateSkills;
 
     @OneToMany(mappedBy = "candidates")
     @NotNull
+    @JsonIgnore
     private List<CandidateLinks> candidateLinks;
 
     @OneToMany(mappedBy = "candidates")
     @NotNull
+    @JsonIgnore
     private List<Experience> experiences;
 
 }

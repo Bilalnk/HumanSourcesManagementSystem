@@ -8,7 +8,7 @@ import com.kodlama.hrms.core.utilities.result.SuccessDataResult;
 import com.kodlama.hrms.core.utilities.result.SuccessResult;
 import com.kodlama.hrms.dataAccess.abstracts.JobAdvertisementDao;
 import com.kodlama.hrms.entities.concretes.JobAdvertisement;
-import org.aspectj.bridge.Message;
+import com.kodlama.hrms.entities.dtos.JobAdvertisementDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,6 @@ import java.util.List;
 @Service
 public class JobAdvertisementManager implements JobAdvertisementService {
 
-
     private JobAdvertisementDao jobAdvertisementDao;
 
     @Autowired
@@ -25,17 +24,14 @@ public class JobAdvertisementManager implements JobAdvertisementService {
         this.jobAdvertisementDao = jobAdvertisementDao;
     }
 
-
     //TODO DATARESULT -> RESULT
     @Override
     public DataResult<JobAdvertisement> add(JobAdvertisement jobAdvertisement) {
-
         return new SuccessDataResult<JobAdvertisement>(this.jobAdvertisementDao.save(jobAdvertisement), Messages.SUCCESS);
     }
 
     @Override
     public DataResult<List<JobAdvertisement>> findByActiveTrue() {
-
         return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.findByActiveTrue(), Messages.SUCCESS);
     }
 
@@ -55,6 +51,11 @@ public class JobAdvertisementManager implements JobAdvertisementService {
         jobAdvertisement.setActive(active);
         this.jobAdvertisementDao.save(jobAdvertisement);
         return new SuccessResult();
+    }
+
+    @Override
+    public DataResult<List<JobAdvertisementDto>> getJobAdveritsementDetails() {
+        return new SuccessDataResult<List<JobAdvertisementDto>>(this.jobAdvertisementDao.getJobAdvertisementByDetails());
     }
 
 

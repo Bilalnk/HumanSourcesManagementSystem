@@ -4,6 +4,7 @@ import com.kodlama.hrms.business.abstracts.CandidatesService;
 import com.kodlama.hrms.core.utilities.result.*;
 import com.kodlama.hrms.entities.concretes.Candidates;
 
+import com.kodlama.hrms.entities.dtos.CVDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -40,6 +41,11 @@ public class CandidatesController {
     @PostMapping(value = "/add", consumes = "application/json", produces = "application/json")
     public Result add(@RequestBody @Valid Candidates candidates){
         return this.candidatesService.add(candidates);
+    }
+
+    @GetMapping("/getcv")
+    public DataResult<CVDto> getCv(@Valid @RequestParam  int id){
+        return this.candidatesService.getCvById(id);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)//sistemde bu türden bir hata olursa yukrıdaki responseEntity'i bad request ile sarmala //hataları yakala

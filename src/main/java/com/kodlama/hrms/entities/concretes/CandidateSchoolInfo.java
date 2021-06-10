@@ -33,7 +33,6 @@ public class CandidateSchoolInfo {
 
     @Column(name = "date_of_start")
     @NotNull
-    @NotBlank
     private Date dateOfStart;
 
     @Column(name = "date_of_finish")
