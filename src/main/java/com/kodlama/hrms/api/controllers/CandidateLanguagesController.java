@@ -20,6 +20,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/candidatelangs")
+@CrossOrigin
 public class CandidateLanguagesController{
 
     private CandidateLanguagesService candidateLanguagesService;

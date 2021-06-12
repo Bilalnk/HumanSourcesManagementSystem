@@ -18,6 +18,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/skills")
+@CrossOrigin
 public class SkillsController {
 
     private SkillsService skillsService;

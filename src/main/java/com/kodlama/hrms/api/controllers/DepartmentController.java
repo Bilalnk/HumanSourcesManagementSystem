@@ -19,6 +19,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/departments")
+@CrossOrigin
 public class DepartmentController {
 
     private DepartmentService departmentService;

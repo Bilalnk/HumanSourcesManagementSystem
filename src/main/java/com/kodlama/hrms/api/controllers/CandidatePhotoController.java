@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/uploadphoto")
+@CrossOrigin
 public class CandidatePhotoController {
 
     private CandidatePhotoService candidatePhotoService;

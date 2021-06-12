@@ -2,13 +2,11 @@ package com.kodlama.hrms.api.controllers;
 
 import com.kodlama.hrms.business.abstracts.EmailVerificationService;
 import com.kodlama.hrms.core.utilities.result.Result;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/verify")
+@CrossOrigin
 public class EmailVerifyController {
 
     private EmailVerificationService emailVerificationService;
