@@ -24,7 +24,7 @@ public class LanguageLevelsController{
         this.languageLevelsService = languageLevelsService;
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public Result add(@RequestBody LanguageLevels languageLevels){
         this.languageLevelsService.add(languageLevels);
         return new SuccessResult(Messages.SUCCESS);

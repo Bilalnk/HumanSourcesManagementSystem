@@ -1,9 +1,9 @@
 package com.kodlama.hrms.business.concretes;
 
 import com.kodlama.hrms.business.abstracts.*;
-import com.kodlama.hrms.core.utilities.constants.Messages;
 import com.kodlama.hrms.core.utilities.adapters.abstracts.EmailSenderService;
 import com.kodlama.hrms.core.utilities.adapters.abstracts.UserChecksService;
+import com.kodlama.hrms.core.utilities.constants.Messages;
 import com.kodlama.hrms.core.utilities.result.DataResult;
 import com.kodlama.hrms.core.utilities.result.ErrorDataResult;
 import com.kodlama.hrms.core.utilities.result.SuccessDataResult;
@@ -30,7 +30,7 @@ public class CandidatesManager implements CandidatesService {
     private ExperienceService experienceService;
     private CandidateLinksService candidateLinksService;
     private CandidateSkillsService skillsService;
-//    private CandidatePhotoService candidatePhotoService;
+    /*    private CandidatePhotoService candidatePhotoService;*/
 
     @Autowired
     public CandidatesManager(CandidatesDao candidatesDao, UserChecksService userChecksService, EmailSenderService emailSenderService,
@@ -46,7 +46,7 @@ public class CandidatesManager implements CandidatesService {
         this.experienceService = experienceService;
         this.candidateLinksService = candidateLinksService;
         this.skillsService = skillsService;
-//        this.candidatePhotoService = candidatePhotoService;
+        /*this.candidatePhotoService = candidatePhotoService;*/
     }
 
 
@@ -67,13 +67,16 @@ public class CandidatesManager implements CandidatesService {
     @Override
     public DataResult<Candidates> add(Candidates candidates) {
 
-        if(!CandidatesFieldChecker.checker(candidates)){
+        if (!CandidatesFieldChecker.checker(candidates)) {
             return new ErrorDataResult<>(candidates, false, Messages.NOT_IN_PROPER_FORMAT);
-        }if (!userChecksService.CheckIfRealPerson(candidates)) {
+        }
+        if (!userChecksService.CheckIfRealPerson(candidates)) {
             return new ErrorDataResult<Candidates>(candidates, false, Messages.NOT_A_REAL_PERSON);
-        }if(candidatesDao.existsCandidatesByEmail(candidates.getEmail())){
+        }
+        if (candidatesDao.existsCandidatesByEmail(candidates.getEmail())) {
             return new ErrorDataResult<Candidates>(candidates, false, Messages.EMAIL_EXIST);
-        }if(candidatesDao.existsCandidatesByIdentityNumber(candidates.getIdentityNumber())){
+        }
+        if (candidatesDao.existsCandidatesByIdentityNumber(candidates.getIdentityNumber())) {
             return new ErrorDataResult<Candidates>(candidates, false, Messages.IDENTITY_NUMBER_EXIST);
         }
 
@@ -91,31 +94,31 @@ public class CandidatesManager implements CandidatesService {
     @Override
     public DataResult<CVDto> getCvById(int id) {
 
-        if(!this.isExist(id)) return new ErrorDataResult<>(null, Messages.USER_NOT_EXIST);
+        if (!this.isExist(id)) return new ErrorDataResult<>(null, Messages.USER_NOT_EXIST);
 
-        CVDto cvDto= new CVDto();
+        CVDto cvDto = new CVDto();
         cvDto.setCandidate(this.candidatesDao.findById(id).get());
         cvDto.setCandidateSchoolInfoList(this.candidateSchoolInfoService.getByCandidatesIdOrderByDateOfFinishDesc(id).getData());
         cvDto.setCandidateLanguages(this.candidateLanguagesService.getAll().getData());
         cvDto.setExperiences(this.experienceService.findByCandidatesIdOrderByDepartureDateDesc(id).getData());
         cvDto.setCandidateLinks(this.candidateLinksService.getAll().getData());
         cvDto.setCandidateSkills(this.skillsService.getAll().getData());
-//        cvDto.setCandidatePhoto(this.candidatePhotoService.findByCandidatesId(id).getData());
+        /*cvDto.setCandidatePhoto(this.candidatePhotoService.findByCandidatesId(id).getData());*/
 
         return new SuccessDataResult<>(cvDto, Messages.SUCCESS);
     }
 }
 
-class CandidatesFieldChecker{
+class CandidatesFieldChecker {
 
-    public static boolean checker(Candidates candidates){
+    public static boolean checker(Candidates candidates) {
 
         return !candidates.getEmail().isBlank() && !candidates.getFirstName().isBlank() && !candidates.getLastName().isBlank() &&
-                    !candidates.getIdentityNumber().isBlank() && candidates.getIdentityNumber().length() == 11 && !candidates.getEmail().isBlank() && emailVerify(candidates.getEmail());
+                !candidates.getIdentityNumber().isBlank() && candidates.getIdentityNumber().length() == 11 && !candidates.getEmail().isBlank() && emailVerify(candidates.getEmail());
 
     }
 
-    private static boolean emailVerify(String email){
+    private static boolean emailVerify(String email) {
         String regex = "^(.+)@(.+)$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(email);

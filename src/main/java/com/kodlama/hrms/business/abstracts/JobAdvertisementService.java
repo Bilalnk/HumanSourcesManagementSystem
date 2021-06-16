@@ -6,6 +6,7 @@ import com.kodlama.hrms.entities.concretes.JobAdvertisement;
 import com.kodlama.hrms.entities.dtos.JobAdvertisementDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface JobAdvertisementService{
 
@@ -20,6 +21,8 @@ public interface JobAdvertisementService{
      Result updateAdvertisementActive(int id, boolean active);
 
      DataResult<List<JobAdvertisementDto>> getJobAdveritsementDetails();
+
+     DataResult<Optional<JobAdvertisement>> getById(int id);
 
 
 

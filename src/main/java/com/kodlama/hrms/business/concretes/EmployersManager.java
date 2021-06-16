@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,6 +47,11 @@ public class EmployersManager implements EmployersService {
     @Override
     public DataResult<List<Employers>> getAll() {
         return new SuccessDataResult<List<Employers>>(this.employersDao.findAll(), Messages.USERS_RETURNED);
+    }
+
+    @Override
+    public DataResult<Optional<Employers>> getById(int id) {
+        return new SuccessDataResult<Optional<Employers>>(this.employersDao.findById(id));
     }
 
     @Override

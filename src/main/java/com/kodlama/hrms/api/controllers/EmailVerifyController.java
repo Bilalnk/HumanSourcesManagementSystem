@@ -5,7 +5,7 @@ import com.kodlama.hrms.core.utilities.result.Result;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/verify")
+@RequestMapping("/api/verification")
 @CrossOrigin
 public class EmailVerifyController {
 
@@ -15,7 +15,7 @@ public class EmailVerifyController {
         this.emailVerificationService = emailVerificationService;
     }
 
-    @PostMapping("/{id}/{activationCode}")
+    @PostMapping("/verify")
     public Result verify(@RequestParam int id, @RequestParam  String activationCode){
         return this.emailVerificationService.verify(activationCode, id);
     }

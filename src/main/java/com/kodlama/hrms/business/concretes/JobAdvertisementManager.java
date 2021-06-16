@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class JobAdvertisementManager implements JobAdvertisementService {
@@ -56,6 +57,11 @@ public class JobAdvertisementManager implements JobAdvertisementService {
     @Override
     public DataResult<List<JobAdvertisementDto>> getJobAdveritsementDetails() {
         return new SuccessDataResult<List<JobAdvertisementDto>>(this.jobAdvertisementDao.getJobAdvertisementByDetails());
+    }
+
+    @Override
+    public DataResult<Optional<JobAdvertisement>> getById(int id) {
+        return new SuccessDataResult<Optional<JobAdvertisement>>(this.jobAdvertisementDao.findById(id));
     }
 
 

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/jobadvertisement")
@@ -43,12 +44,17 @@ public class JobAdvertisementController {
     }
 
     @GetMapping("/updateAdvertisementActive")
-    public Result updateAdvertisementActive(int id, boolean active){
+    public Result updateAdvertisementActive(@RequestParam int id, @RequestParam boolean active){
         return this.jobAdvertisementManager.updateAdvertisementActive(id, active);
     }
 
     @GetMapping("/getjobadvertisementdetails")
     public DataResult<List<JobAdvertisementDto>> getJobAdveritsementDetails() {
         return this.jobAdvertisementManager.getJobAdveritsementDetails();
+    }
+
+    @GetMapping("/getjobadvertisementbyid")
+    public DataResult<Optional<JobAdvertisement>> getJobAdveritsementById(@RequestParam int id) {
+        return this.jobAdvertisementManager.getById(id);
     }
 }

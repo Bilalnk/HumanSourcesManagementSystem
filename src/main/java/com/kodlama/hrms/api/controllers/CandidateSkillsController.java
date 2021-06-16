@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(name = "/api/candidateskills")
+@RequestMapping("/api/candidateskills")
 @CrossOrigin
 public class CandidateSkillsController {
 

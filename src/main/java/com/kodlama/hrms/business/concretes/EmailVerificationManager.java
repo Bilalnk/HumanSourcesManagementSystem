@@ -49,6 +49,8 @@ public class EmailVerificationManager implements EmailVerificationService {
     @Override
     public Result verify(String code, int id) {
         Optional<ActivationCodes> getCode = this.activationCodesDao.findByUserId(id);
+        if(!getCode.isPresent()) return new ErrorResult("Kullanıcı bulunamadı");
+
         ActivationCodes activationCode = getCode.get();
 
         if(activationCode.getActivationCode().equals(code)){

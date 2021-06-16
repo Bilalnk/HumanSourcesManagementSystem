@@ -6,6 +6,7 @@ import com.kodlama.hrms.entities.concretes.Employers;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/employers")
@@ -27,4 +28,13 @@ public class EmpolyersController {
     public DataResult<List<Employers>> getAll(){
         return this.employersService.getAll();
     }
+
+    @GetMapping("/get")
+    DataResult<Optional<Employers>> getById(@RequestParam int id){
+        return this.employersService.getById(id);
+    }
+
+
+
+
 }
