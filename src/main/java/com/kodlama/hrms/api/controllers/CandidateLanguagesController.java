@@ -52,6 +52,6 @@ public class CandidateLanguagesController{
         }
 //        ErrorDataResult<Object> errors = new ErrorDataResult<>(validationErrors, "false");
 
-        return new ErrorDataResult<>(validationErrors, "false");
+        return new ErrorDataResult<>(validationErrors, "False");
     }
 }
