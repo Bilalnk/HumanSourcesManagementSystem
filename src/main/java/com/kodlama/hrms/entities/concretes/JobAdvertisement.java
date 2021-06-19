@@ -1,10 +1,12 @@
 package com.kodlama.hrms.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -36,9 +38,13 @@ public class JobAdvertisement {
     @Column(name = "is_active")
     private boolean active;
 
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "published_date")
     private Date publishedDate;
 
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name ="closing_date")
     private Date closingDate;
 
