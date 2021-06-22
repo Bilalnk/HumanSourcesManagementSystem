@@ -18,4 +18,6 @@ public interface CandidatePhotoService {
 
     Result uploadToCloudinary(MultipartFile file, int candidateId);
 
+    Result uploadPreface(int id, String preface);
+
 }

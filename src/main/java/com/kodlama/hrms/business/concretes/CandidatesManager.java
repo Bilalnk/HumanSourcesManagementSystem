@@ -30,13 +30,13 @@ public class CandidatesManager implements CandidatesService {
     private ExperienceService experienceService;
     private CandidateLinksService candidateLinksService;
     private CandidateSkillsService skillsService;
-    /*    private CandidatePhotoService candidatePhotoService;*/
+        private CandidatePhotoService candidatePhotoService;
 
     @Autowired
     public CandidatesManager(CandidatesDao candidatesDao, UserChecksService userChecksService, EmailSenderService emailSenderService,
                              EmailVerificationService emailVerificationService, CandidateSchoolInfoService candidateSchoolInfoService,
                              CandidateLanguagesService candidateLanguagesService, ExperienceService experienceService,
-                             CandidateLinksService candidateLinksService, CandidateSkillsService skillsService/*, CandidatePhotoService candidatePhotoService*/) {
+                             CandidateLinksService candidateLinksService, CandidateSkillsService skillsService, CandidatePhotoService candidatePhotoService) {
         this.candidatesDao = candidatesDao;
         this.userChecksService = userChecksService;
         this.emailSenderService = emailSenderService;
@@ -46,7 +46,7 @@ public class CandidatesManager implements CandidatesService {
         this.experienceService = experienceService;
         this.candidateLinksService = candidateLinksService;
         this.skillsService = skillsService;
-        /*this.candidatePhotoService = candidatePhotoService;*/
+        this.candidatePhotoService = candidatePhotoService;
     }
 
 
@@ -103,7 +103,7 @@ public class CandidatesManager implements CandidatesService {
         cvDto.setExperiences(this.experienceService.findByCandidatesIdOrderByDepartureDateDesc(id).getData());
         cvDto.setCandidateLinks(this.candidateLinksService.getAll().getData());
         cvDto.setCandidateSkills(this.skillsService.getAll().getData());
-        /*cvDto.setCandidatePhoto(this.candidatePhotoService.findByCandidatesId(id).getData());*/
+        cvDto.setCandidatePhoto(this.candidatePhotoService.findByCandidatesId(id).getData());
 
         return new SuccessDataResult<>(cvDto, Messages.SUCCESS);
     }

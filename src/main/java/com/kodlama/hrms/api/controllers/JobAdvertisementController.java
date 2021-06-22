@@ -48,6 +48,11 @@ public class JobAdvertisementController {
         return this.jobAdvertisementManager.updateAdvertisementActive(id, active);
     }
 
+    @GetMapping("/updateAdvertisementConfirm")
+    public Result updateAdvertisementConfirm(@RequestParam int id, @RequestParam boolean confirm){
+        return this.jobAdvertisementManager.updateAdvertisementConfirmed(id, confirm);
+    }
+
     @GetMapping("/getjobadvertisementdetails")
     public DataResult<List<JobAdvertisementDto>> getJobAdveritsementDetails() {
         return this.jobAdvertisementManager.getJobAdveritsementDetails();
@@ -56,5 +61,10 @@ public class JobAdvertisementController {
     @GetMapping("/getjobadvertisementbyid")
     public DataResult<Optional<JobAdvertisement>> getJobAdveritsementById(@RequestParam int id) {
         return this.jobAdvertisementManager.getById(id);
+    }
+
+    @GetMapping("/getByConfirmedByEmployeesFalseOrderByPublishedDateDesc")
+    public DataResult<List<JobAdvertisement>> getByConfirmedByEmployeesFalseOrderByPublishedDateDesc(){
+        return this.jobAdvertisementManager.findByConfirmedByEmployeesFalseOrderByPublishedDateDesc();
     }
 }

@@ -29,6 +29,11 @@ public class CandidateLanguagesManager implements CandidateLanguagesService {
     }
 
     @Override
+    public DataResult<List<CandidateLanguages>> getByCandidateId(int candidateId) {
+        return new SuccessDataResult<>(this.candidateLanguagesDao.getByCandidatesId(candidateId));
+    }
+
+    @Override
     public Result add(CandidateLanguages candidateLanguages) {
         this.candidateLanguagesDao.save(candidateLanguages);
         return new SuccessResult(Messages.SUCCESS);

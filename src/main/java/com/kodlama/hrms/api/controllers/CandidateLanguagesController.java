@@ -21,7 +21,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/candidatelangs")
 @CrossOrigin
-public class CandidateLanguagesController{
+public class CandidateLanguagesController {
 
     private CandidateLanguagesService candidateLanguagesService;
 
@@ -32,22 +32,28 @@ public class CandidateLanguagesController{
 
 
     @GetMapping("/getall")
-    public DataResult<List<CandidateLanguages>> getAll(){
+    public DataResult<List<CandidateLanguages>> getAll() {
         return this.candidateLanguagesService.getAll();
     }
 
+    @GetMapping("/getByCandidateId")
+    public DataResult<List<CandidateLanguages>> getByCandidateId(int candidateId) {
+        return this.candidateLanguagesService.getByCandidateId(candidateId);
+    }
+
     @PostMapping("/add")
-    public Result add(@RequestBody @Valid CandidateLanguages candidateLanguages){
+    public Result add(@RequestBody @Valid CandidateLanguages candidateLanguages) {
         this.candidateLanguagesService.add(candidateLanguages);
         return new SuccessResult(Messages.SUCCESS);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)//sistemde bu türden bir hata olursa yukrıdaki responseEntity'i bad request ile sarmala //hataları yakala
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+//sistemde bu türden bir hata olursa yukrıdaki responseEntity'i bad request ile sarmala //hataları yakala
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions){
-        Map<String, String> validationErrors= new HashMap<>();
+    public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions) {
+        Map<String, String> validationErrors = new HashMap<>();
 
-        for(FieldError fieldError: exceptions.getBindingResult().getFieldErrors()){
+        for (FieldError fieldError : exceptions.getBindingResult().getFieldErrors()) {
             validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
 //        ErrorDataResult<Object> errors = new ErrorDataResult<>(validationErrors, "false");

@@ -43,13 +43,21 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 
     @Override
     public DataResult<List<JobAdvertisement>> findByActiveTrueAndEmployerId(int employerId) {
-        return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.findByActiveTrueAndEmployerId(employerId));
+        return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.findByActiveTrueAndConfirmedByEmployeesTrueAndEmployerId(employerId));
     }
 
     @Override
     public Result updateAdvertisementActive(int id, boolean active) {
         JobAdvertisement jobAdvertisement = this.jobAdvertisementDao.findById(id).orElse(null);
         jobAdvertisement.setActive(active);
+        this.jobAdvertisementDao.save(jobAdvertisement);
+        return new SuccessResult();
+    }
+
+    @Override
+    public Result updateAdvertisementConfirmed(int id, boolean confirm) {
+        JobAdvertisement jobAdvertisement = this.jobAdvertisementDao.findById(id).orElse(null);
+        jobAdvertisement.setConfirmedByEmployees(confirm);
         this.jobAdvertisementDao.save(jobAdvertisement);
         return new SuccessResult();
     }
@@ -62,6 +70,11 @@ public class JobAdvertisementManager implements JobAdvertisementService {
     @Override
     public DataResult<Optional<JobAdvertisement>> getById(int id) {
         return new SuccessDataResult<Optional<JobAdvertisement>>(this.jobAdvertisementDao.findById(id));
+    }
+
+    @Override
+    public SuccessDataResult<List<JobAdvertisement>> findByConfirmedByEmployeesFalseOrderByPublishedDateDesc() {
+        return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.findByConfirmedByEmployeesFalseOrderByPublishedDateDesc());
     }
 
 

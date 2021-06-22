@@ -34,4 +34,9 @@ public class CandidateSkillsManager implements CandidateSkillsService {
     public DataResult<List<CandidateSkills>> getAll() {
         return new SuccessDataResult<>(this.skillsDao.findAll());
     }
+
+    @Override
+    public DataResult<List<CandidateSkills>> getByCandidateId(int candidateId) {
+        return new SuccessDataResult<>(this.skillsDao.getByCandidatesId(candidateId));
+    }
 }

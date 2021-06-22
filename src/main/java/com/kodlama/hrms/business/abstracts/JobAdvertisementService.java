@@ -18,12 +18,15 @@ public interface JobAdvertisementService{
 
     DataResult<List<JobAdvertisement>> findByActiveTrueAndEmployerId(int employerId);
 
-     Result updateAdvertisementActive(int id, boolean active);
+    Result updateAdvertisementActive(int id, boolean active);
+
+    Result updateAdvertisementConfirmed(int id, boolean active);
 
      DataResult<List<JobAdvertisementDto>> getJobAdveritsementDetails();
 
      DataResult<Optional<JobAdvertisement>> getById(int id);
 
+    DataResult<List<JobAdvertisement>> findByConfirmedByEmployeesFalseOrderByPublishedDateDesc();
 
 
 }

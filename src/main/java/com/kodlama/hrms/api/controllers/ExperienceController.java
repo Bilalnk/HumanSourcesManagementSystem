@@ -42,6 +42,11 @@ public class ExperienceController {
         return this.experienceService.getAll();
     }
 
+    @GetMapping("/getbycandidateId")
+    public DataResult<List<Experience>> getByCandidateIdOrderByDesc(@RequestParam int candidateId){
+        return this.experienceService.findByCandidatesIdOrderByDepartureDateDesc(candidateId);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)//sistemde bu türden bir hata olursa yukarıdaki responseEntity'i bad request ile sarmala //hataları yakala
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions){

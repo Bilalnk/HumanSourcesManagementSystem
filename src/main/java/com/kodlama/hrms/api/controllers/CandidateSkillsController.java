@@ -42,6 +42,12 @@ public class CandidateSkillsController {
         return new SuccessResult(Messages.SUCCESS);
     }
 
+    @GetMapping("/getbycandidateid")
+    public DataResult<List<CandidateSkills>> getByCandidateId(@RequestParam int candidateId){
+        return this.skillsService.getByCandidateId(candidateId);
+    }
+
+
     @ExceptionHandler(MethodArgumentNotValidException.class)//sistemde bu türden bir hata olursa yukrıdaki responseEntity'i bad request ile sarmala //hataları yakala
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions){

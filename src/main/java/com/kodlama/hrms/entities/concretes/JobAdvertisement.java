@@ -38,6 +38,9 @@ public class JobAdvertisement {
     @Column(name = "is_active")
     private boolean active;
 
+    @Column(name = "is_confirmd_by_employees")
+    private boolean confirmedByEmployees;
+
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
