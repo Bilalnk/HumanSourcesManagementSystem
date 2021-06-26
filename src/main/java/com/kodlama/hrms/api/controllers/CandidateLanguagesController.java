@@ -47,6 +47,11 @@ public class CandidateLanguagesController {
         return new SuccessResult(Messages.SUCCESS);
     }
 
+    @GetMapping("/update")
+    public Result update(@RequestParam int id, @RequestParam int langId, @RequestParam int langLevelId){
+        return this.candidateLanguagesService.update(id, langId, langLevelId);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
 //sistemde bu türden bir hata olursa yukrıdaki responseEntity'i bad request ile sarmala //hataları yakala
     @ResponseStatus(HttpStatus.BAD_REQUEST)

@@ -1,6 +1,7 @@
 package com.kodlama.hrms.business.concretes;
 
 import com.kodlama.hrms.business.abstracts.JobAdvertisementService;
+import com.kodlama.hrms.core.utilities.Filters.JobAdvertisementFilter;
 import com.kodlama.hrms.core.utilities.constants.Messages;
 import com.kodlama.hrms.core.utilities.result.DataResult;
 import com.kodlama.hrms.core.utilities.result.Result;
@@ -10,6 +11,9 @@ import com.kodlama.hrms.dataAccess.abstracts.JobAdvertisementDao;
 import com.kodlama.hrms.entities.concretes.JobAdvertisement;
 import com.kodlama.hrms.entities.dtos.JobAdvertisementDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -77,5 +81,20 @@ public class JobAdvertisementManager implements JobAdvertisementService {
         return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.findByConfirmedByEmployeesFalseOrderByPublishedDateDesc());
     }
 
+    /*@Override
+    public SuccessDataResult<Page<JobAdvertisement>> getTenByTen(JobAdvertisementFilter jobAdvertisementFilter, int pageSize, int pageNo) {
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+
+        return new SuccessDataResult<Page<JobAdvertisement>>( this.jobAdvertisementDao.getByPaginatedAndFiltered(jobAdvertisementFilter, pageable));
+    }*/
+
+
+    /*@Override
+    public SuccessDataResult<List<JobAdvertisement>> getTenByTen(int jobPositionId, int pageNo) {
+        Pageable pageable = PageRequest.of(pageNo - 1 , 10);
+
+        return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByActiveTrueAndJobPositionIdOrderByPublishedDateDesc(jobPositionId, pageable), Messages.SUCCESS);
+    }
+*/
 
 }

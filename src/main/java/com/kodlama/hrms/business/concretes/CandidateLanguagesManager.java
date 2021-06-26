@@ -2,12 +2,11 @@ package com.kodlama.hrms.business.concretes;
 
 import com.kodlama.hrms.business.abstracts.CandidateLanguagesService;
 import com.kodlama.hrms.core.utilities.constants.Messages;
-import com.kodlama.hrms.core.utilities.result.DataResult;
-import com.kodlama.hrms.core.utilities.result.Result;
-import com.kodlama.hrms.core.utilities.result.SuccessDataResult;
-import com.kodlama.hrms.core.utilities.result.SuccessResult;
+import com.kodlama.hrms.core.utilities.result.*;
 import com.kodlama.hrms.dataAccess.abstracts.CandidateLanguagesDao;
 import com.kodlama.hrms.entities.concretes.CandidateLanguages;
+import com.kodlama.hrms.entities.concretes.LanguageLevels;
+import com.kodlama.hrms.entities.concretes.Languages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,4 +37,22 @@ public class CandidateLanguagesManager implements CandidateLanguagesService {
         this.candidateLanguagesDao.save(candidateLanguages);
         return new SuccessResult(Messages.SUCCESS);
     }
+
+    @Override
+    public Result update(int id, int languageId, int languageLevelsId) {
+        CandidateLanguages candidateLanguages = this.candidateLanguagesDao.findById(id).orElse(null);
+        if(candidateLanguages == null ) return new ErrorResult("Bulunamadı");
+
+        Languages languages = new Languages();
+        languages.setId(languageId);
+
+        LanguageLevels languageLevels = new LanguageLevels();
+        languageLevels.setId(languageLevelsId);
+
+        candidateLanguages.setLanguages(languages);
+        candidateLanguages.setLanguageLevels(languageLevels);
+        this.candidateLanguagesDao.save(candidateLanguages);
+        return new SuccessResult("Güncellendi") ;
+    }
+
 }

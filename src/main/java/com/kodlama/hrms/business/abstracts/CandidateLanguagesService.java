@@ -14,6 +14,6 @@ public interface CandidateLanguagesService {
 
     Result add(CandidateLanguages candidateLanguages);
 
-
+    Result update(int id, int languageId, int languageLevelsId);
 
 }

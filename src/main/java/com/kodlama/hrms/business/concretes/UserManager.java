@@ -26,9 +26,15 @@ public class UserManager implements UserService {
 
     @Override
     public Result login(String email, String password) {
+
+        if(!this.userDao.existsByEmail(email)){
+            return new ErrorResult("Kullanıcı Bulunamadı");
+        }
         if (this.userDao.existsByEmailAndPassword(email, password)) {
             return new SuccessResult("Kullanıcı mevcut");
         }
-        return new ErrorResult("Kullanıcı bulunamadı");
+        return new ErrorResult("Şifrenizi Kontrol Ediniz");
     }
+
+
 }

@@ -1,11 +1,13 @@
 package com.kodlama.hrms.api.controllers;
 
 import com.kodlama.hrms.business.concretes.JobAdvertisementManager;
+import com.kodlama.hrms.core.utilities.Filters.JobAdvertisementFilter;
 import com.kodlama.hrms.core.utilities.result.DataResult;
 import com.kodlama.hrms.core.utilities.result.Result;
 import com.kodlama.hrms.entities.concretes.JobAdvertisement;
 import com.kodlama.hrms.entities.dtos.JobAdvertisementDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -67,4 +69,9 @@ public class JobAdvertisementController {
     public DataResult<List<JobAdvertisement>> getByConfirmedByEmployeesFalseOrderByPublishedDateDesc(){
         return this.jobAdvertisementManager.findByConfirmedByEmployeesFalseOrderByPublishedDateDesc();
     }
+
+   /* @GetMapping("/gettenbyten")
+    public DataResult<Page<JobAdvertisement>> getTenByTen(@RequestParam(defaultValue = "10") int pageSize, @RequestParam(defaultValue = "1") int pageNo, @RequestBody JobAdvertisementFilter jobAdvertisementFilter){
+        return this.jobAdvertisementManager.getTenByTen(jobAdvertisementFilter, pageSize, pageNo);
+    }*/
 }

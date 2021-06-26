@@ -9,6 +9,6 @@ public interface CandidateSchoolInfoDao extends JpaRepository<CandidateSchoolInf
 
     List<CandidateSchoolInfo> getByCandidatesIdOrderByDateOfFinishDesc(int candidateId);
 
-    boolean existsById(int id);
+    boolean existsByCandidatesIdAndSchoolDepartmentId(int candidateId, int schoolDepId);
 
 }

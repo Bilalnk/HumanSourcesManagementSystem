@@ -1,9 +1,12 @@
 package com.kodlama.hrms.business.abstracts;
 
+import com.kodlama.hrms.core.utilities.Filters.JobAdvertisementFilter;
 import com.kodlama.hrms.core.utilities.result.DataResult;
 import com.kodlama.hrms.core.utilities.result.Result;
+import com.kodlama.hrms.core.utilities.result.SuccessDataResult;
 import com.kodlama.hrms.entities.concretes.JobAdvertisement;
 import com.kodlama.hrms.entities.dtos.JobAdvertisementDto;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,5 +31,7 @@ public interface JobAdvertisementService{
 
     DataResult<List<JobAdvertisement>> findByConfirmedByEmployeesFalseOrderByPublishedDateDesc();
 
+   /* SuccessDataResult<Page<JobAdvertisement>> getTenByTen(JobAdvertisementFilter jobAdvertisementFilter, int pageSize, int pageNo);
 
+*/
 }
