@@ -8,4 +8,6 @@ import java.util.List;
 public interface CandidateSkillsDao extends JpaRepository<CandidateSkills, Integer> {
 
     List<CandidateSkills> getByCandidatesId (int id);
+
+    boolean existsByCandidatesIdAndSkillsId(int candidateId, int skillId);
 }

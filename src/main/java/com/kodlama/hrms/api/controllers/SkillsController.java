@@ -39,6 +39,11 @@ public class SkillsController {
         return this.skillsService.add(skill);
     }
 
+    @PostMapping("/delete")
+    public Result deleteById(@RequestParam int id){
+        return this.skillsService.deleteById(id);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)//sistemde bu türden bir hata olursa yukrıdaki responseEntity'i bad request ile sarmala //hataları yakala
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions){
