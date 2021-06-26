@@ -51,23 +51,24 @@ public class CandidatePhotoManager implements CandidatePhotoService {
     @Override
     public Result uploadToCloudinary(MultipartFile file, int candidateId) {
 
-//        if (!this.candidatesService.isExist(candidateId)) return new ErrorResult(Messages.USER_NOT_EXIST);
+        CandidatePhoto candidatePhoto;
 
-//        Optional<Candidates> candidates = this.candidatesService.getById(candidateId).getData();
+        if (this.candidatePhotoDao.existsByCandidatesId(candidateId)) {
 
-        Candidates candidates = new Candidates();
-        candidates.setId(candidateId);
+             candidatePhoto = this.candidatePhotoDao.getByCandidatesId(candidateId);
 
-        CandidatePhoto candidatePhoto = new CandidatePhoto();
-        candidatePhoto.setCandidates(candidates);
+        }
+        else
+        {
+            Candidates candidates = new Candidates();
+            candidates.setId(candidateId);
+
+            candidatePhoto = new CandidatePhoto();
+            candidatePhoto.setCandidates(candidates);
+
+        }
 
         Map<String, String> cloudinaryMap = (Map<String, String>) this.imageService.saveImage(file).getData();
-
-
-        /*CandidatePhoto candidatePhoto = null;
-        CandidatePhoto candidatePhotoEx = this.candidatePhotoDao.findByCandidatesId(candidateId).get(0);
-        candidatePhoto = Objects.requireNonNullElseGet(candidatePhotoEx, CandidatePhoto::new);
-        candidatePhoto.setCandidates(candidates.get());*/
 
         candidatePhoto.setPhotoUrl(cloudinaryMap.get("url"));
         candidatePhoto.setUploadedDate(LocalDateTime.now());
@@ -87,4 +88,6 @@ public class CandidatePhotoManager implements CandidatePhotoService {
             return new ErrorResult(e.toString());
         }
     }
+
+
 }

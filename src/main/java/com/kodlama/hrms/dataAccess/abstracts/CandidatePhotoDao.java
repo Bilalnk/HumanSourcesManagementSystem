@@ -9,4 +9,8 @@ public interface CandidatePhotoDao extends JpaRepository<CandidatePhoto, Integer
 
     List<CandidatePhoto> findByCandidatesId(int id);
 
+    CandidatePhoto getByCandidatesId(int id);
+
+    boolean existsByCandidatesId(int candidateId);
+
 }

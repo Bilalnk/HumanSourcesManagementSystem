@@ -25,12 +25,26 @@ public class CandidateLinksManager implements CandidateLinksService {
 
     @Override
     public Result add(CandidateLinks candidateLinks) {
-        this.candidateLinksDao.save(candidateLinks);
+        CandidateLinks oneOfCandidatesLinks = this.candidateLinksDao.findByCandidatesId(candidateLinks.getCandidates().getId());
+
+        if (oneOfCandidatesLinks == null) {
+            this.candidateLinksDao.save(candidateLinks);
+        } else {
+            oneOfCandidatesLinks.setLink(candidateLinks.getLink());
+            oneOfCandidatesLinks.setLinkType(candidateLinks.getLinkType());
+            this.candidateLinksDao.save(oneOfCandidatesLinks);
+        }
+
         return new SuccessResult(Messages.SUCCESS);
     }
 
     @Override
     public DataResult<List<CandidateLinks>> getAll() {
         return new SuccessDataResult<>(this.candidateLinksDao.findAll());
+    }
+
+    @Override
+    public DataResult<List<CandidateLinks>> getByCandidateId(int id) {
+        return new SuccessDataResult<>(this.candidateLinksDao.getByCandidatesId(id));
     }
 }

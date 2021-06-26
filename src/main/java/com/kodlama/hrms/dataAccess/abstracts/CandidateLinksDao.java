@@ -3,5 +3,11 @@ package com.kodlama.hrms.dataAccess.abstracts;
 import com.kodlama.hrms.entities.concretes.CandidateLinks;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface CandidateLinksDao extends JpaRepository<CandidateLinks, Integer> {
+
+    CandidateLinks findByCandidatesId(int id);
+
+    List<CandidateLinks> getByCandidatesId(int id);
 }

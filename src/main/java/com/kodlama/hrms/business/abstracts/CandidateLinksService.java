@@ -13,4 +13,6 @@ public interface CandidateLinksService {
 
     DataResult<List<CandidateLinks>> getAll();
 
+    DataResult<List<CandidateLinks>> getByCandidateId(int id);
+
 }

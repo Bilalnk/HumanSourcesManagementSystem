@@ -20,4 +20,5 @@ public interface CandidatePhotoService {
 
     Result uploadPreface(int id, String preface);
 
+
 }
