@@ -39,7 +39,7 @@ public class CandidatePhotoController {
         return this.candidatePhotoService.findByCandidatesId(id);
     }
 
-    @GetMapping("/addpreface")
+    @PostMapping("/addpreface")
     public Result addPreface (@RequestParam int candidateId, @RequestParam String preface){
         return this.candidatePhotoService.uploadPreface(candidateId, preface);
     }

@@ -14,7 +14,7 @@ public interface SchoolDepartmentDao extends JpaRepository<SchoolDepartment, Int
 
     SchoolDepartment getBySchoolIdAndDepartmentId(int schoolId, int departmentId);
 
-    @Query("select new com.kodlama.hrms.entities.dtos.DepartmentOfSchoolDto(sd.department.id, sd.department.departmentName)" +
+    @Query("select new com.kodlama.hrms.entities.dtos.DepartmentOfSchoolDto(sd.department.id, sd.id,sd.department.departmentName)" +
     "from SchoolDepartment sd where  sd.school.id= :id")
     List<DepartmentOfSchoolDto> getBySchool(int id);
 

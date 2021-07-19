@@ -11,4 +11,6 @@ public interface CandidateSchoolInfoDao extends JpaRepository<CandidateSchoolInf
 
     boolean existsByCandidatesIdAndSchoolDepartmentId(int candidateId, int schoolDepId);
 
+    boolean existsById(int id);
+
 }

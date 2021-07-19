@@ -46,7 +46,7 @@ public class CandidateSkillsController {
         return this.skillsService.getByCandidateId(candidateId);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public Result deleteById(@RequestParam int id){
        return this.skillsService.deleteById(id);
     }

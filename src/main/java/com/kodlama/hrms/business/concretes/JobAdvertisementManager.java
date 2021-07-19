@@ -10,6 +10,7 @@ import com.kodlama.hrms.core.utilities.result.SuccessResult;
 import com.kodlama.hrms.dataAccess.abstracts.JobAdvertisementDao;
 import com.kodlama.hrms.entities.concretes.JobAdvertisement;
 import com.kodlama.hrms.entities.dtos.JobAdvertisementDto;
+import com.kodlama.hrms.entities.dtos.JobAdvertisementWithCountDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -70,7 +71,6 @@ public class JobAdvertisementManager implements JobAdvertisementService {
     public DataResult<List<JobAdvertisementDto>> getJobAdveritsementDetails() {
         return new SuccessDataResult<List<JobAdvertisementDto>>(this.jobAdvertisementDao.getJobAdvertisementByDetails());
     }
-
     @Override
     public DataResult<Optional<JobAdvertisement>> getById(int id) {
         return new SuccessDataResult<Optional<JobAdvertisement>>(this.jobAdvertisementDao.findById(id));
@@ -81,12 +81,23 @@ public class JobAdvertisementManager implements JobAdvertisementService {
         return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.findByConfirmedByEmployeesFalseOrderByPublishedDateDesc());
     }
 
-    /*@Override
-    public SuccessDataResult<Page<JobAdvertisement>> getTenByTen(JobAdvertisementFilter jobAdvertisementFilter, int pageSize, int pageNo) {
+    @Override
+    public DataResult<JobAdvertisementWithCountDto> getTenByTen(JobAdvertisementFilter jobAdvertisementFilter, int pageSize, int pageNo) {
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
 
-        return new SuccessDataResult<Page<JobAdvertisement>>( this.jobAdvertisementDao.getByPaginatedAndFiltered(jobAdvertisementFilter, pageable));
-    }*/
+        int advertisementCount = this.jobAdvertisementDao.getByFiltered(jobAdvertisementFilter).size();
+        JobAdvertisementWithCountDto jobAdvertisementWithCountDto = new JobAdvertisementWithCountDto(advertisementCount, this.jobAdvertisementDao.getByPaginatedAndFiltered(jobAdvertisementFilter, pageable));
+
+
+        return new SuccessDataResult<JobAdvertisementWithCountDto>( jobAdvertisementWithCountDto);
+    }
+    @Override
+    public DataResult<List<JobAdvertisement>> getFiltered(JobAdvertisementFilter jobAdvertisementFilter) {
+        System.out.println(jobAdvertisementFilter.getCityId());
+        return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByFiltered(jobAdvertisementFilter));
+    }
+
+
 
 
     /*@Override

@@ -39,4 +39,9 @@ public class EmployeesManager implements EmployeesService {
     public Result confirmEmployer(int id, boolean active) {
         return employersService.confirmEmployer(id, active);
     }
+
+    @Override
+    public boolean isExist(int employeesId) {
+        return this.employeesDao.existsById(employeesId);
+    }
 }

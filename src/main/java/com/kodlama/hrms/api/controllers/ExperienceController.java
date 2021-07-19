@@ -47,6 +47,11 @@ public class ExperienceController {
         return this.experienceService.findByCandidatesIdOrderByDepartureDateDesc(candidateId);
     }
 
+    @DeleteMapping("/delete")
+    public Result delete (@RequestParam int id){
+        return this.experienceService.delete(id);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)//sistemde bu türden bir hata olursa yukarıdaki responseEntity'i bad request ile sarmala //hataları yakala
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions){

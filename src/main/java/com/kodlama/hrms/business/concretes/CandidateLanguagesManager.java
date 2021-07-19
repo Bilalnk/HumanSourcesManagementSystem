@@ -34,6 +34,10 @@ public class CandidateLanguagesManager implements CandidateLanguagesService {
 
     @Override
     public Result add(CandidateLanguages candidateLanguages) {
+
+        if(this.candidateLanguagesDao.existsByCandidatesIdAndLanguagesId(candidateLanguages.getCandidates().getId(), candidateLanguages.getLanguages().getId())){
+            return new ErrorResult("Bu dil kayıtlı ");
+        }
         this.candidateLanguagesDao.save(candidateLanguages);
         return new SuccessResult(Messages.SUCCESS);
     }
@@ -53,6 +57,15 @@ public class CandidateLanguagesManager implements CandidateLanguagesService {
         candidateLanguages.setLanguageLevels(languageLevels);
         this.candidateLanguagesDao.save(candidateLanguages);
         return new SuccessResult("Güncellendi") ;
+    }
+
+    @Override
+    public Result delete(int id) {
+        if(this.candidateLanguagesDao.existsById(id)){
+            this.candidateLanguagesDao.deleteById(id);
+            return new SuccessResult("Dil Silindi");
+        }
+        return new ErrorResult("Dil referansı bulunamadı");
     }
 
 }

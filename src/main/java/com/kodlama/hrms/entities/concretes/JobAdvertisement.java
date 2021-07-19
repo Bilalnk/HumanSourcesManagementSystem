@@ -10,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -70,4 +71,9 @@ public class JobAdvertisement {
     @ManyToOne
     @JoinColumn(name = "work_type_id")
     private WorkType workType;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "jobAdvertisement")
+    private List<CandidateFavoriteAdvertisements> candidateFavoriteAdvertisements;
+
 }

@@ -41,7 +41,7 @@ public class SchoolDepartmentController {
     }
 
     @GetMapping("/getdtobycshoolid")
-    public Result getBySchoolId(@RequestParam int schoolId){
+    public Result getDepartmentsBySchoolId(@RequestParam int schoolId){
         return this.departmentService.findBySchoolId(schoolId);
     }
 }

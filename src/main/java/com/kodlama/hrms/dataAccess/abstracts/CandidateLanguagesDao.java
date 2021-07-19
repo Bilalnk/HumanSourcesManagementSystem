@@ -10,6 +10,9 @@ public interface CandidateLanguagesDao extends JpaRepository<CandidateLanguages,
 
     List<CandidateLanguages> getByCandidatesId (int candidateId);
 
+    boolean existsByCandidatesIdAndLanguagesId(int candidateId, int languageId);
+
+    boolean existsById(int id);
 
 
 }

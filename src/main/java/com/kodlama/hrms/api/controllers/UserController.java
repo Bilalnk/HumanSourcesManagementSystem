@@ -1,8 +1,10 @@
 package com.kodlama.hrms.api.controllers;
 
 import com.kodlama.hrms.business.concretes.UserManager;
+import com.kodlama.hrms.core.utilities.result.DataResult;
 import com.kodlama.hrms.core.utilities.result.ErrorDataResult;
 import com.kodlama.hrms.core.utilities.result.Result;
+import com.kodlama.hrms.entities.abstracts.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -28,6 +30,11 @@ public class UserController {
     @GetMapping("/login")
     public Result login(@Valid @RequestParam String email, @Valid @RequestParam String password ){
         return this.userManager.login(email, password);
+    }
+
+    @GetMapping("/loginandget")
+    public DataResult<User> getUser (@RequestParam String email, @Valid @RequestParam String password ){
+        return this.userManager.getByEmailAndPassword(email, password);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)//sistemde bu türden bir hata olursa yukarıdaki responseEntity'i bad request ile sarmala //hataları yakala

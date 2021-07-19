@@ -62,4 +62,13 @@ public class CandidateSchoolInfoManager implements CandidateSchoolInfoService {
         return new SuccessResult("Güncellendi");
     }
 
+    @Override
+    public Result deleteById(int id) {
+
+        if(!this.candidateSchoolInfoDao.existsById(id)) return new ErrorResult("Kayıt bulunamadı. Silme başarısız");
+
+        this.candidateSchoolInfoDao.deleteById(id);
+        return new SuccessResult("Silindi");
+    }
+
 }

@@ -11,4 +11,6 @@ public interface CandidatesDao extends JpaRepository<Candidates, Integer> {
 
     boolean existsCandidatesById(int id);
 
+    Candidates getCandidatesById(int id);
+
 }

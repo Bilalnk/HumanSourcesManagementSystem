@@ -13,4 +13,6 @@ public interface EmployeesService {
     DataResult<Employees> add(Employees employees);
 
     Result confirmEmployer(int id, boolean active);
+
+    boolean isExist (int employeesId);
 }

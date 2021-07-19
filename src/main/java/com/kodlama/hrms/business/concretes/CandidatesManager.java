@@ -4,12 +4,11 @@ import com.kodlama.hrms.business.abstracts.*;
 import com.kodlama.hrms.core.utilities.adapters.abstracts.EmailSenderService;
 import com.kodlama.hrms.core.utilities.adapters.abstracts.UserChecksService;
 import com.kodlama.hrms.core.utilities.constants.Messages;
-import com.kodlama.hrms.core.utilities.result.DataResult;
-import com.kodlama.hrms.core.utilities.result.ErrorDataResult;
-import com.kodlama.hrms.core.utilities.result.SuccessDataResult;
+import com.kodlama.hrms.core.utilities.result.*;
 import com.kodlama.hrms.dataAccess.abstracts.CandidatesDao;
 import com.kodlama.hrms.entities.concretes.Candidates;
 import com.kodlama.hrms.entities.dtos.CVDto;
+import com.kodlama.hrms.entities.dtos.CvPersonalInfoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -84,6 +83,22 @@ public class CandidatesManager implements CandidatesService {
         this.emailSenderService.sendCode(candidates.getEmail(), this.emailVerificationService.createCode(candidates1.getId()));
         return new SuccessDataResult<Candidates>(candidates1, Messages.USER_ADDED);
 
+    }
+
+    @Override
+    public Result update(CvPersonalInfoDto cvPersonalInfoDto) {
+        Candidates candidates = this.candidatesDao.findById(cvPersonalInfoDto.getCandidateId()).orElse(null);
+
+        if(candidates == null){
+            return new ErrorResult("Candidate bulunamadı");
+        }
+        candidates.setFirstName(cvPersonalInfoDto.getFirstName());
+        candidates.setLastName(cvPersonalInfoDto.getLastName());
+        candidates.setBod(cvPersonalInfoDto.getBod());
+        candidates.setEmail(cvPersonalInfoDto.getEmail());
+
+        this.candidatesDao.save(candidates);
+        return new SuccessResult("Güncellendi");
     }
 
     @Override

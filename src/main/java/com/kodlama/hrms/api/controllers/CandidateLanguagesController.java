@@ -43,13 +43,18 @@ public class CandidateLanguagesController {
 
     @PostMapping("/add")
     public Result add(@RequestBody @Valid CandidateLanguages candidateLanguages) {
-        this.candidateLanguagesService.add(candidateLanguages);
-        return new SuccessResult(Messages.SUCCESS);
+        return this.candidateLanguagesService.add(candidateLanguages);
+
     }
 
     @GetMapping("/update")
     public Result update(@RequestParam int id, @RequestParam int langId, @RequestParam int langLevelId){
         return this.candidateLanguagesService.update(id, langId, langLevelId);
+    }
+
+    @DeleteMapping("/delete")
+    public Result delete(@RequestParam int id){
+        return this.candidateLanguagesService.delete(id);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

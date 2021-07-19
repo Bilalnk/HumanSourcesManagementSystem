@@ -1,5 +1,6 @@
 package com.kodlama.hrms.entities.dtos;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,11 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DepartmentOfSchoolDto {
+public class CandidateLinksDto {
 
-    private int id;
-    private int schoolDepartmentId;
-    private String department;
-
+    private String linkType;
+    private String link;
 
 }

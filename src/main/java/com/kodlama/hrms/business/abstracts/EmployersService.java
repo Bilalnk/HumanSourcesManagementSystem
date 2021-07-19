@@ -17,4 +17,6 @@ public interface EmployersService {
 
     Result confirmEmployer(int id, boolean active);
 
+    boolean isExist ( int employerId);
+
 }

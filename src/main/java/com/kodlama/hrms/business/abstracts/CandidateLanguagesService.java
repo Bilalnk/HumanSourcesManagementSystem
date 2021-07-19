@@ -16,4 +16,6 @@ public interface CandidateLanguagesService {
 
     Result update(int id, int languageId, int languageLevelsId);
 
+    Result delete(int id);
+
 }

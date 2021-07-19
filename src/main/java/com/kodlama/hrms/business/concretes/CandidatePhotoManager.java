@@ -45,7 +45,12 @@ public class CandidatePhotoManager implements CandidatePhotoService {
 
     @Override
     public DataResult<List<CandidatePhoto>> findByCandidatesId(int id) {
-        return new SuccessDataResult<List<CandidatePhoto>>(this.candidatePhotoDao.findByCandidatesId(id));
+
+        if (this.candidatePhotoDao.existsByCandidatesId(id)) {
+
+            return new SuccessDataResult<List<CandidatePhoto>>(this.candidatePhotoDao.findByCandidatesId(id));
+        }
+        return new ErrorDataResult<>(null, false, "Kullanıcı Fotoğrafı Bulunamadı");
     }
 
     @Override
@@ -55,11 +60,9 @@ public class CandidatePhotoManager implements CandidatePhotoService {
 
         if (this.candidatePhotoDao.existsByCandidatesId(candidateId)) {
 
-             candidatePhoto = this.candidatePhotoDao.getByCandidatesId(candidateId);
+            candidatePhoto = this.candidatePhotoDao.getByCandidatesId(candidateId);
 
-        }
-        else
-        {
+        } else {
             Candidates candidates = new Candidates();
             candidates.setId(candidateId);
 
@@ -79,14 +82,34 @@ public class CandidatePhotoManager implements CandidatePhotoService {
     @Override
     public Result uploadPreface(int id, String preface) {
 
-        try {
-        CandidatePhoto candidatePhoto = this.candidatePhotoDao.findByCandidatesId(id).get(0);
+        CandidatePhoto candidatePhoto;
+
+        if (this.candidatePhotoDao.existsByCandidatesId(id)) {
+
+            candidatePhoto = this.candidatePhotoDao.getByCandidatesId(id);
+
+        } else {
+            Candidates candidates = new Candidates();
+            candidates.setId(id);
+
+            candidatePhoto = new CandidatePhoto();
+            candidatePhoto.setCandidates(candidates);
+        }
+
         candidatePhoto.setPreface(preface);
         this.candidatePhotoDao.save(candidatePhoto);
         return new SuccessResult(Messages.SUCCESS);
-        }catch (Exception e){
+
+
+       /*
+        try {
+            CandidatePhoto candidatePhoto = this.candidatePhotoDao.findByCandidatesId(id).get(0);
+            candidatePhoto.setPreface(preface);
+            this.candidatePhotoDao.save(candidatePhoto);
+            return new SuccessResult(Messages.SUCCESS);
+        } catch (Exception e) {
             return new ErrorResult(e.toString());
-        }
+        }*/
     }
 
 

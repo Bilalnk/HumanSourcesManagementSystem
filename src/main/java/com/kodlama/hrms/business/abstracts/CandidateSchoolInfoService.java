@@ -18,4 +18,6 @@ public interface CandidateSchoolInfoService {
 
     Result update(SchoolInfoDto schoolInfoDto);
 
+    Result deleteById(int id);
+
 }

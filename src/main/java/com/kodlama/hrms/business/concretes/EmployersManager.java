@@ -63,6 +63,11 @@ public class EmployersManager implements EmployersService {
         return new SuccessResult(Messages.SUCCESS);
     }
 
+    @Override
+    public boolean isExist(int employerId) {
+        return this.employersDao.existsById(employerId);
+    }
+
 
     private Result checkCompanyName(Employers employers) {
         if (employers.getCompanyName().isBlank() || employers.getCompanyName() == null) {
