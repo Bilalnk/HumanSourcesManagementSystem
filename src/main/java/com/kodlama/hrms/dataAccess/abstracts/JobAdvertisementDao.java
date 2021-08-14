@@ -56,7 +56,9 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Int
             "AND ( ((:#{#adFilter.isWayOfWorkIdEmptyOrNull()}) is true) Or j.wayOfWork.id In (:#{#adFilter.wayOfWorkId}))" +
             "AND (((:#{#adFilter.isWorkTypeIdEmptyOrNull()}) is true) Or j.workType.id In (:#{#adFilter.workTypeId}) )"+
             "AND (j.active =true)" +
+            "AND (j.employer.isActivated=true)" +
             "AND (j.confirmedByEmployees = true)" +
+            "AND (j.closingDate >= current_date)" +
             "ORDER BY j.publishedDate DESC")
     List<JobAdvertisement> getByFiltered(@Param("adFilter") JobAdvertisementFilter jobAdvertisementFilter);
 

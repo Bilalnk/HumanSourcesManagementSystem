@@ -1,5 +1,6 @@
 package com.kodlama.hrms.api.controllers;
 
+import com.kodlama.hrms.business.abstracts.UserService;
 import com.kodlama.hrms.business.concretes.UserManager;
 import com.kodlama.hrms.core.utilities.result.DataResult;
 import com.kodlama.hrms.core.utilities.result.ErrorDataResult;
@@ -20,21 +21,31 @@ import java.util.Map;
 @CrossOrigin
 public class UserController {
 
-    private UserManager userManager;
+    private UserService userService;
 
     @Autowired
-    public UserController(UserManager userManager) {
-        this.userManager = userManager;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/login")
     public Result login(@Valid @RequestParam String email, @Valid @RequestParam String password ){
-        return this.userManager.login(email, password);
+        return this.userService.login(email, password);
     }
 
     @GetMapping("/loginandget")
     public DataResult<User> getUser (@RequestParam String email, @Valid @RequestParam String password ){
-        return this.userManager.getByEmailAndPassword(email, password);
+        return this.userService.getByEmailAndPassword(email, password);
+    }
+
+    @PostMapping("/update-mail")
+    public Result updateMail(@RequestParam int id, @RequestParam String email){
+        return this.userService.updateMail(id, email);
+    }
+
+    @PostMapping("/update-password")
+    public Result updatePassword (@RequestParam int id, @RequestParam String oldPassword, @RequestParam String newPassword){
+        return this.userService.updatePassword(id, oldPassword, newPassword);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)//sistemde bu türden bir hata olursa yukarıdaki responseEntity'i bad request ile sarmala //hataları yakala

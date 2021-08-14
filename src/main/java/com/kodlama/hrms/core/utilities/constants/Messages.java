@@ -2,6 +2,9 @@ package com.kodlama.hrms.core.utilities.constants;
 
 public class Messages {
 
+    public static final String UPDATE_SUCCESSFUL = "Güncelleme Başarılı";
+    public static final String INCORRECT_PASSWORD = "Eski Şifre Yanlış";
+    public static final String PASSWORD_CANNOT_BE_LESS_THEN_SIX_CHARACTERS = "Şifre Altı Karakterden Az Olamaz";
     public static String USER_ADDED = "Kullanıcı Eklendi";
     public static String NOT_A_REAL_PERSON = "Gerçek bir kişi değil";
     public static String USER_NOT_EXIST = "Kullanıcı Bulunamadı";
