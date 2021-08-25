@@ -2,7 +2,10 @@ package com.kodlama.hrms.entities.concretes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.kodlama.hrms.entities.abstracts.IEntity;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,9 +13,11 @@ import java.util.Objects;
 
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "job_positions")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","jobAdvertisement"})
-public class JobPositions {
+public class JobPositions implements IEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,14 +26,6 @@ public class JobPositions {
 
     @Column(name = "position")
     private String position;
-
-    public JobPositions() {
-    }
-
-    public JobPositions(int id, String position) {
-        this.id = id;
-        this.position = position;
-    }
 
     @JsonIgnore
     @OneToMany(mappedBy = "jobPosition")

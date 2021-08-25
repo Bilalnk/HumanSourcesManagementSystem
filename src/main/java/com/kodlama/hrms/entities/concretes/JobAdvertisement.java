@@ -13,10 +13,10 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "job_advertisement")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "job_advertisement")
 public class JobAdvertisement {
 
     @Id
