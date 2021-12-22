@@ -5,6 +5,7 @@ import com.kodlama.hrms.core.utilities.result.DataResult;
 import com.kodlama.hrms.core.utilities.result.ErrorDataResult;
 import com.kodlama.hrms.core.utilities.result.Result;
 import com.kodlama.hrms.entities.concretes.CandidateSchoolInfo;
+import com.kodlama.hrms.entities.dtos.SchoolInfoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -41,6 +42,16 @@ public class CandidateSchoolInfoController {
     @GetMapping("/getallorderdesc")
     public DataResult<List<CandidateSchoolInfo>> getAllOrderDesc(@RequestParam int candidateId){
         return this.candidateSchoolInfoService.getByCandidatesIdOrderByDateOfFinishDesc(candidateId);
+    }
+
+    @PostMapping("/update")
+    public Result update( @RequestBody SchoolInfoDto schoolInfoDto) {
+        return this.candidateSchoolInfoService.update(schoolInfoDto);
+    }
+
+    @DeleteMapping("/delete")
+    public Result delete (@RequestParam int id){
+        return this.candidateSchoolInfoService.deleteById(id);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)//sistemde bu türden bir hata olursa yukrıdaki responseEntity'i bad request ile sarmala //hataları yakala

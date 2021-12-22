@@ -10,6 +10,12 @@ public interface CandidateLanguagesService {
 
     DataResult<List<CandidateLanguages>> getAll();
 
+    DataResult<List<CandidateLanguages>> getByCandidateId(int candidateId);
+
     Result add(CandidateLanguages candidateLanguages);
+
+    Result update(int id, int languageId, int languageLevelsId);
+
+    Result delete(int id);
 
 }

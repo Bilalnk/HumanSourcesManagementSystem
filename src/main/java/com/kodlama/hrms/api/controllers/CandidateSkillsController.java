@@ -38,9 +38,19 @@ public class CandidateSkillsController {
 
     @PostMapping("/add")
     public Result add(@Valid @RequestBody CandidateSkills candidateSkills){
-        this.skillsService.addSkill(candidateSkills);
-        return new SuccessResult(Messages.SUCCESS);
+        return this.skillsService.addSkill(candidateSkills);
     }
+
+    @GetMapping("/getbycandidateid")
+    public DataResult<List<CandidateSkills>> getByCandidateId(@RequestParam int candidateId){
+        return this.skillsService.getByCandidateId(candidateId);
+    }
+
+    @DeleteMapping("/delete")
+    public Result deleteById(@RequestParam int id){
+       return this.skillsService.deleteById(id);
+    }
+
 
     @ExceptionHandler(MethodArgumentNotValidException.class)//sistemde bu türden bir hata olursa yukrıdaki responseEntity'i bad request ile sarmala //hataları yakala
     @ResponseStatus(HttpStatus.BAD_REQUEST)

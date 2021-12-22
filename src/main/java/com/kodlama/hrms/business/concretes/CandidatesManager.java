@@ -4,12 +4,11 @@ import com.kodlama.hrms.business.abstracts.*;
 import com.kodlama.hrms.core.utilities.adapters.abstracts.EmailSenderService;
 import com.kodlama.hrms.core.utilities.adapters.abstracts.UserChecksService;
 import com.kodlama.hrms.core.utilities.constants.Messages;
-import com.kodlama.hrms.core.utilities.result.DataResult;
-import com.kodlama.hrms.core.utilities.result.ErrorDataResult;
-import com.kodlama.hrms.core.utilities.result.SuccessDataResult;
+import com.kodlama.hrms.core.utilities.result.*;
 import com.kodlama.hrms.dataAccess.abstracts.CandidatesDao;
 import com.kodlama.hrms.entities.concretes.Candidates;
 import com.kodlama.hrms.entities.dtos.CVDto;
+import com.kodlama.hrms.entities.dtos.CvPersonalInfoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,13 +29,13 @@ public class CandidatesManager implements CandidatesService {
     private ExperienceService experienceService;
     private CandidateLinksService candidateLinksService;
     private CandidateSkillsService skillsService;
-    /*    private CandidatePhotoService candidatePhotoService;*/
+        private CandidatePhotoService candidatePhotoService;
 
     @Autowired
     public CandidatesManager(CandidatesDao candidatesDao, UserChecksService userChecksService, EmailSenderService emailSenderService,
                              EmailVerificationService emailVerificationService, CandidateSchoolInfoService candidateSchoolInfoService,
                              CandidateLanguagesService candidateLanguagesService, ExperienceService experienceService,
-                             CandidateLinksService candidateLinksService, CandidateSkillsService skillsService/*, CandidatePhotoService candidatePhotoService*/) {
+                             CandidateLinksService candidateLinksService, CandidateSkillsService skillsService, CandidatePhotoService candidatePhotoService) {
         this.candidatesDao = candidatesDao;
         this.userChecksService = userChecksService;
         this.emailSenderService = emailSenderService;
@@ -46,7 +45,7 @@ public class CandidatesManager implements CandidatesService {
         this.experienceService = experienceService;
         this.candidateLinksService = candidateLinksService;
         this.skillsService = skillsService;
-        /*this.candidatePhotoService = candidatePhotoService;*/
+        this.candidatePhotoService = candidatePhotoService;
     }
 
 
@@ -87,6 +86,22 @@ public class CandidatesManager implements CandidatesService {
     }
 
     @Override
+    public Result update(CvPersonalInfoDto cvPersonalInfoDto) {
+        Candidates candidates = this.candidatesDao.findById(cvPersonalInfoDto.getCandidateId()).orElse(null);
+
+        if(candidates == null){
+            return new ErrorResult("Candidate bulunamadı");
+        }
+        candidates.setFirstName(cvPersonalInfoDto.getFirstName());
+        candidates.setLastName(cvPersonalInfoDto.getLastName());
+        candidates.setBod(cvPersonalInfoDto.getBod());
+        candidates.setEmail(cvPersonalInfoDto.getEmail());
+
+        this.candidatesDao.save(candidates);
+        return new SuccessResult("Güncellendi");
+    }
+
+    @Override
     public boolean isExist(int id) {
         return this.candidatesDao.existsCandidatesById(id);
     }
@@ -103,7 +118,7 @@ public class CandidatesManager implements CandidatesService {
         cvDto.setExperiences(this.experienceService.findByCandidatesIdOrderByDepartureDateDesc(id).getData());
         cvDto.setCandidateLinks(this.candidateLinksService.getAll().getData());
         cvDto.setCandidateSkills(this.skillsService.getAll().getData());
-        /*cvDto.setCandidatePhoto(this.candidatePhotoService.findByCandidatesId(id).getData());*/
+        cvDto.setCandidatePhoto(this.candidatePhotoService.findByCandidatesId(id).getData());
 
         return new SuccessDataResult<>(cvDto, Messages.SUCCESS);
     }

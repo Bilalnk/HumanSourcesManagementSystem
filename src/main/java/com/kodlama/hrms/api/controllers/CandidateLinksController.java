@@ -5,6 +5,7 @@ import com.kodlama.hrms.core.utilities.result.DataResult;
 import com.kodlama.hrms.core.utilities.result.ErrorDataResult;
 import com.kodlama.hrms.core.utilities.result.Result;
 import com.kodlama.hrms.entities.concretes.CandidateLinks;
+import com.kodlama.hrms.entities.dtos.CandidateLinksDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -36,6 +37,16 @@ public class CandidateLinksController {
     @GetMapping("/getall")
     public DataResult<List<CandidateLinks>> getAll(){
         return this.candidateLinksService.getAll();
+    }
+
+    @GetMapping("/getbycandidateId")
+    public DataResult<List<CandidateLinks>> getByCandidateId(@RequestParam int id){
+        return this.candidateLinksService.getByCandidateId(id);
+    }
+
+    @GetMapping("/getlinksdtosbycandidateid")
+    public DataResult<List<CandidateLinksDto>> getAllDtoByCandidateId(@RequestParam int id){
+        return this.candidateLinksService.getAllDtoByCandidateId(id);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)//sistemde bu türden bir hata olursa yukrıdaki responseEntity'i bad request ile sarmala //hataları yakala

@@ -2,10 +2,7 @@ package com.kodlama.hrms.business.concretes;
 
 import com.kodlama.hrms.business.abstracts.ExperienceService;
 import com.kodlama.hrms.core.utilities.constants.Messages;
-import com.kodlama.hrms.core.utilities.result.DataResult;
-import com.kodlama.hrms.core.utilities.result.Result;
-import com.kodlama.hrms.core.utilities.result.SuccessDataResult;
-import com.kodlama.hrms.core.utilities.result.SuccessResult;
+import com.kodlama.hrms.core.utilities.result.*;
 import com.kodlama.hrms.dataAccess.abstracts.ExperienceDao;
 import com.kodlama.hrms.entities.concretes.Experience;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +36,13 @@ public class ExperienceManager implements ExperienceService {
     @Override
     public DataResult<List<Experience>> findByCandidatesIdOrderByDepartureDateDesc(int candidateId) {
         return new SuccessDataResult<List<Experience>>(this.experienceDao.findByCandidatesIdOrderByDepartureDateDesc(candidateId));
+    }
+
+    @Override
+    public Result delete(int id) {
+
+        if(!this.experienceDao.existsById(id)) return new ErrorResult("Hatalı id");
+        this.experienceDao.deleteById(id);
+        return new SuccessResult("Deneyim Silindi");
     }
 }

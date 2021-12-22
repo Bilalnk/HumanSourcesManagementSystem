@@ -21,7 +21,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/candidatelangs")
 @CrossOrigin
-public class CandidateLanguagesController{
+public class CandidateLanguagesController {
 
     private CandidateLanguagesService candidateLanguagesService;
 
@@ -32,22 +32,38 @@ public class CandidateLanguagesController{
 
 
     @GetMapping("/getall")
-    public DataResult<List<CandidateLanguages>> getAll(){
+    public DataResult<List<CandidateLanguages>> getAll() {
         return this.candidateLanguagesService.getAll();
     }
 
-    @PostMapping("/add")
-    public Result add(@RequestBody @Valid CandidateLanguages candidateLanguages){
-        this.candidateLanguagesService.add(candidateLanguages);
-        return new SuccessResult(Messages.SUCCESS);
+    @GetMapping("/getByCandidateId")
+    public DataResult<List<CandidateLanguages>> getByCandidateId(int candidateId) {
+        return this.candidateLanguagesService.getByCandidateId(candidateId);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)//sistemde bu türden bir hata olursa yukrıdaki responseEntity'i bad request ile sarmala //hataları yakala
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions){
-        Map<String, String> validationErrors= new HashMap<>();
+    @PostMapping("/add")
+    public Result add(@RequestBody @Valid CandidateLanguages candidateLanguages) {
+        return this.candidateLanguagesService.add(candidateLanguages);
 
-        for(FieldError fieldError: exceptions.getBindingResult().getFieldErrors()){
+    }
+
+    @GetMapping("/update")
+    public Result update(@RequestParam int id, @RequestParam int langId, @RequestParam int langLevelId){
+        return this.candidateLanguagesService.update(id, langId, langLevelId);
+    }
+
+    @DeleteMapping("/delete")
+    public Result delete(@RequestParam int id){
+        return this.candidateLanguagesService.delete(id);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+//sistemde bu türden bir hata olursa yukrıdaki responseEntity'i bad request ile sarmala //hataları yakala
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions) {
+        Map<String, String> validationErrors = new HashMap<>();
+
+        for (FieldError fieldError : exceptions.getBindingResult().getFieldErrors()) {
             validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
 //        ErrorDataResult<Object> errors = new ErrorDataResult<>(validationErrors, "false");

@@ -33,4 +33,10 @@ public class SkillsManager implements SkillsService {
         this.skillsDao.save(skills);
         return new SuccessResult(Messages.SUCCESS);
     }
+
+    @Override
+    public Result deleteById(int id) {
+         this.skillsDao.deleteById(id);
+         return new SuccessResult("Silindi");
+    }
 }

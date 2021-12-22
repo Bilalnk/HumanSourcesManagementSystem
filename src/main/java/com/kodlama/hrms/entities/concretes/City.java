@@ -2,6 +2,7 @@ package com.kodlama.hrms.entities.concretes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.kodlama.hrms.entities.abstracts.IEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,7 +18,7 @@ import java.util.List;
 @Table(name = "city")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","jobAdvertisement"})
 @EqualsAndHashCode(callSuper = false)
-public class City {
+public class City implements IEntity {
 
     @Id
     @Column(name = "id")

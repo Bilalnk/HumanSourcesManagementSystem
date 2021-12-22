@@ -5,6 +5,7 @@ import com.kodlama.hrms.core.utilities.result.DataResult;
 import com.kodlama.hrms.core.utilities.result.Result;
 import com.kodlama.hrms.core.utilities.result.SuccessResult;
 import com.kodlama.hrms.entities.concretes.CandidatePhoto;
+import com.kodlama.hrms.entities.concretes.Candidates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,5 +37,10 @@ public class CandidatePhotoController {
     @GetMapping("/getbyid")
     public DataResult<List<CandidatePhoto>> getById(@RequestParam int id){
         return this.candidatePhotoService.findByCandidatesId(id);
+    }
+
+    @PostMapping("/addpreface")
+    public Result addPreface (@RequestParam int candidateId, @RequestParam String preface){
+        return this.candidatePhotoService.uploadPreface(candidateId, preface);
     }
 }

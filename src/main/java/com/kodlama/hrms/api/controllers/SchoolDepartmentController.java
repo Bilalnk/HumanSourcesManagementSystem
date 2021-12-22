@@ -34,4 +34,14 @@ public class SchoolDepartmentController {
     public Result add(@RequestBody SchoolDepartment schoolDepartment){
         return this.departmentService.add(schoolDepartment);
     }
+
+    @GetMapping("/getbycshoolid")
+    public Result getBySchool(@RequestParam int schoolId){
+        return this.departmentService.getBySchoolId(schoolId);
+    }
+
+    @GetMapping("/getdtobycshoolid")
+    public Result getDepartmentsBySchoolId(@RequestParam int schoolId){
+        return this.departmentService.findBySchoolId(schoolId);
+    }
 }

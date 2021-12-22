@@ -12,6 +12,12 @@ public interface UserService {
 
     Result login(String email, String password);
 
+    DataResult<User> getByEmailAndPassword(String email, String password);
+
+    Result updateMail(int id, String email);
+
+    Result updatePassword(int id, String oldPassword, String newPassword);
+
 //    DataResult<User> add(User user);
 
 }

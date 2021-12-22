@@ -10,12 +10,13 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
+@Table(name = "job_advertisement")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "job_advertisement")
 public class JobAdvertisement {
 
     @Id
@@ -37,6 +38,9 @@ public class JobAdvertisement {
 
     @Column(name = "is_active")
     private boolean active;
+
+    @Column(name = "is_confirmd_by_employees")
+    private boolean confirmedByEmployees;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -67,4 +71,9 @@ public class JobAdvertisement {
     @ManyToOne
     @JoinColumn(name = "work_type_id")
     private WorkType workType;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "jobAdvertisement")
+    private List<CandidateFavoriteAdvertisements> candidateFavoriteAdvertisements;
+
 }

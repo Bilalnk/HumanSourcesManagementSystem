@@ -26,4 +26,8 @@ public class CandidateLinks {
 
     @Column(name = "link")
     private String link;
+
+    @JoinColumn(name = "link_type_id")
+    @ManyToOne
+    private LinkType linkType;
 }

@@ -1,5 +1,6 @@
 package com.kodlama.hrms.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,9 +33,11 @@ public class CandidateSchoolInfo {
     private SchoolDepartment schoolDepartment;
 
     @Column(name = "date_of_start")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @NotNull
     private Date dateOfStart;
 
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "date_of_finish")
     private Date dateOfFinish;
 
